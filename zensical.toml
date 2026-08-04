@@ -27,14 +27,14 @@ site_author = "Zukai TANG"
 # The site_url is the canonical URL for your site. When building online
 # documentation you should set this.
 # Read more: https://zensical.org/docs/setup/basics/#site_url
-#site_url = "https://www.it1001.top/"
+site_url = "https://zukaitang.github.io/oop-tutorial/"
 
 # The copyright notice appears in the page footer and can contain an HTML
 # fragment.
 #
 # Read more: https://zensical.org/docs/setup/basics/#copyright
 copyright = """
-Copyright &copy; 2026 The authors
+Copyright &copy; 2026 Zukai TANG
 """
 
 # Zensical supports both implicit navigation and explicitly defined navigation.
