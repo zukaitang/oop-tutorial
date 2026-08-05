@@ -45,10 +45,24 @@ Copyright &copy; 2026 Zukai TANG
 #
 # Read more: https://zensical.org/docs/setup/navigation/
 nav = [
+  { "主页" = "index.md" },
+  { "C/C++基础语法差异" = [
+      "1_grammer/1_expression.md",     
+      "1_grammer/2_function.md", 
+      "1_grammer/3_enumration.md", 
+      "1_grammer/4_mem_allocation.md", 
+  ]},
   { "封装 Encapsulation" = [
-      "encapsulation/1_from_c_to_cpp.md",     
-      "encapsulation/2_class_and_object.md",     
-      "encapsulation/3_constructor.md",     
+      "2_encapsulation/1_from_c_to_cpp.md",     
+      "2_encapsulation/2_class_and_object.md", 
+      "2_encapsulation/3_constructor.md", 
+      "2_encapsulation/4_composition.md", 
+  ]},
+  { "继承 Inheritance" = [
+  ]},
+  { "多态 Polymorphism" = [
+  ]},
+  { "模板 template" = [
   ]},
   { "其它 Miscellaneous" = [
       "demo.md",
