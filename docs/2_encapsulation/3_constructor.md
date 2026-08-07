@@ -509,52 +509,6 @@ C++11引入了**类内初始值（In-class Initializer）**，允许在声明数
     Point p2 = createPoint();   // 可能调用复制构造函数
     ```
 
-### 浅拷贝与深拷贝 （TODO）
-
-编译器自动生成的复制构造函数执行**浅拷贝（Shallow Copy）**——逐字节复制成员变量的值。
-
-对于管理动态资源的类（如包含指针成员），浅拷贝会导致多个对象指向同一块内存，引发**重复释放（Double Free）**问题。
-
-!!! danger "浅拷贝的问题"
-
-    ``` cpp linenums="1"
-    class Buffer {
-    public:
-        Buffer(int size) : data(new int[size]), sz(size) {}
-        ~Buffer() { delete[] data; }   // 析构时释放资源
-    private:
-        int* data;
-        int sz;
-    };
-
-    Buffer b1(10);
-    Buffer b2(b1);   // 浅拷贝：b2.data 和 b1.data 指向同一块内存
-    // 程序结束时，b1 和 b2 的析构函数都会 delete[] data，导致重复释放！
-    ```
-
-!!! success "解决方案：自定义深拷贝"
-
-    对于管理资源的类，需要自定义复制构造函数，执行**深拷贝（Deep Copy）**——为新对象独立分配资源并复制内容。
-
-    ``` cpp linenums="1"
-    class Buffer {
-    public:
-        Buffer(int size) : data(new int[size]), sz(size) {}
-
-        // 深拷贝构造函数
-        Buffer(const Buffer& other) : data(new int[other.sz]), sz(other.sz) {
-            for (int i = 0; i < sz; ++i) {
-                data[i] = other.data[i];   // 逐元素复制
-            }
-        }
-
-        ~Buffer() { delete[] data; }
-    private:
-        int* data;
-        int sz;
-    };
-    ```
-
 ### 缺省复制构造函数
 
 每个类可以有一个复制构造函数。如果没有为类显式定义复制构造函数，编译器会自动生成一个**缺省复制构造函数（Default Copy Constructor）**。

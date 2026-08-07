@@ -57,6 +57,12 @@ nav = [
       "2_encapsulation/2_class_and_object.md", 
       "2_encapsulation/3_constructor.md", 
       "2_encapsulation/4_composition.md", 
+      "2_encapsulation/5_static_member.md", 
+      "2_encapsulation/6_friend.md", 
+      "2_encapsulation/7_const.md", 
+      "2_encapsulation/8_object_array_and_pointer.md", 
+      "2_encapsulation/9_dynamic_allocation.md", 
+      "2_encapsulation/10_shallow_and_deep_copy.md", 
   ]},
   { "继承 Inheritance" = [
   ]},
@@ -65,6 +71,8 @@ nav = [
   { "模板 template" = [
   ]},
   { "其它 Miscellaneous" = [
+      "6_miscellaneous/1_multi_file_and_compile.md",     
+
       "demo.md",
       "markdown.md"      
   ]},
@@ -231,7 +239,7 @@ features = [
     # When sections are enabled, top-level sections are rendered as groups in
     # the sidebar for viewports above 1220px, but remain as-is on mobile.
     # https://zensical.org/docs/setup/navigation/#navigation-sections
-    "navigation.sections",
+    #"navigation.sections",
 
     # When tabs are enabled, top-level sections are rendered in a menu layer
     # below the header for viewports above 1220px, but remain as-is on mobile.
@@ -321,9 +329,21 @@ toggle.name = "Switch to light mode"
 # ----------------------------------------------------------------------------
 # The "extra" section contains miscellaneous settings.
 # ----------------------------------------------------------------------------
-#[[project.extra.social]]
-#icon = "fontawesome/brands/github"
-#link = "https://github.com/user/repo"
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/zukaitang/oop-tutorial"
+name = "GitHub"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/qq"
+link = "https://user.qzone.qq.com/13439301"
+name = "QQ"
+
+[[project.extra.social]]
+icon = "fontawesome/regular/envelope"
+link = "mailto:tangzukai@whut.edu.cn"
+name = "Email"
+
 
 # ----------------------------------------------------------------------------
 # In this section you can configure the Markdown extensions that are used when
