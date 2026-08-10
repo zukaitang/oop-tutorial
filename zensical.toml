@@ -63,6 +63,8 @@ nav = [
       "2_encapsulation/8_object_array_and_pointer.md", 
       "2_encapsulation/9_dynamic_allocation.md", 
       "2_encapsulation/10_shallow_and_deep_copy.md", 
+      "2_encapsulation/11_char_array_and_string.md", 
+      "2_encapsulation/12_dynamic_array_and_vector.md", 
   ]},
   { "继承 Inheritance" = [
   ]},
