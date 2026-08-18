@@ -83,9 +83,10 @@ nav = [
       "5_operator_overloading/2_use_member_function.md",
       "5_operator_overloading/3_use_non_member_function.md",
       "5_operator_overloading/4_best_practice.md",
-
   ]},
   { "模板 template" = [
+      "6_template/1_function_template.md",
+      "6_template/2_class_template.md",
   ]},
   { "其它 Miscellaneous" = [
       "7_miscellaneous/1_multi_file_and_compile.md",     
