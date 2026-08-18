@@ -67,13 +67,23 @@ nav = [
       "2_encapsulation/12_dynamic_array_and_vector.md", 
   ]},
   { "继承 Inheritance" = [
+      "3_inheritance/1_overview_of_inheritance.md", 
+      "3_inheritance/2_inheritance_approach.md", 
+      "3_inheritance/3_constractor_of_inheritance.md", 
+      "3_inheritance/4_multi_inheritance_and_virtual_base_class.md",       
   ]},
   { "多态 Polymorphism" = [
+      "4_polymorphism/1_type_compatibility.md", 
+      "4_polymorphism/2_virtual_function.md", 
+      "4_polymorphism/3_abstract_class.md", 
+      "4_polymorphism/4_polymorphism_scenarios.md",
+  ]},
+  { "运算符重载 Operator Overloading" = [
   ]},
   { "模板 template" = [
   ]},
   { "其它 Miscellaneous" = [
-      "6_miscellaneous/1_multi_file_and_compile.md",     
+      "7_miscellaneous/1_multi_file_and_compile.md",     
 
       "demo.md",
       "markdown.md"      
