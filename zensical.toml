@@ -45,7 +45,7 @@ Copyright &copy; 2026 Zukai TANG
 #
 # Read more: https://zensical.org/docs/setup/navigation/
 nav = [
-  { "主页" = "index.md" },
+  { "课程简介" = "index.md" },
   { "C/C++基础语法差异" = [
       "1_grammer/1_cpp_overview.md",     
       "1_grammer/2_keyword.md", 
