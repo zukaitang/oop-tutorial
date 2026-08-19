@@ -1,8 +1,36 @@
-# 动态内存分配
+# 动态内存管理
 
-动态内存分配让程序能够在运行时按需创建和销毁对象，是C++灵活管理内存的核心机制。
+C语言使用 `malloc/free` 进行堆内存管理，而C++提供了更安全、更简洁的 `new/delete` 操作符，
+能够在运行时按需创建和销毁对象，是C++动态内存管理的核心机制。
+理解两者的区别，是编写健壮C++程序的基础。
 
 ## 为什么需要动态内存分配
+
+### 栈内存与堆内存
+
+在C/C++程序中，内存主要分为**栈（Stack）** 和**堆（Heap）** 两个区域：
+
+!!! info "栈内存与堆内存的对比"
+
+    | 对比项       | 栈（Stack）      | 堆（Heap）             |
+    | :----------- | :--------------- | :--------------------- |
+    | **分配方式** | 编译器自动分配   | 程序员手动分配         |
+    | **分配速度** | 快               | 较慢                   |
+    | **生命周期** | 随作用域自动销毁 | 程序员控制             |
+    | **大小限制** | 有限（通常几MB） | 较大（取决于系统内存） |
+    | **内存碎片** | 无               | 可能产生               |
+
+!!! example "栈内存的自动管理"
+
+    ``` cpp linenums="1"
+    void function() {
+        int x = 10;        // 栈上分配
+        double arr[100];   // 栈上分配
+        // x 和 arr 在函数返回时自动释放
+    }
+    ```
+
+### 用堆内存进行动态分配
 
 在程序设计中，很多时候无法预先知道需要创建多少个对象，也无法确定数组的大小。静态分配（编译时确定大小）无法满足这些需求。
 
@@ -37,45 +65,132 @@
 
     - **分配时机**：程序运行时，而非编译时。
     - **分配位置**：堆（Heap）内存，而非栈（Stack）。
-    - **管理方式**：需要程序员显式地申请（`new`）和释放（`delete`）。
-    - **生存期**：从 `new` 分配到 `delete` 释放，由程序员控制。
+    - **管理方式**：需要程序员显式地申请和释放。
+    - **生存期**：从分配到释放，由程序员控制。
 
-## new 和 delete 操作符
+## C语言的内存管理
+
+### C语言的内存管理函数
+
+C语言通过 `<stdlib.h>` 中的 `malloc`、`calloc`、`realloc` 和 `free` 函数进行动态内存管理。
+
+!!! example "C风格的内存管理"
+
+    ``` c linenums="1"
+    #include <stdio.h>
+    #include <stdlib.h>
+
+    int main() {
+        // 1. malloc：分配未初始化的内存
+        int* p1 = (int*)malloc(sizeof(int) * 10);
+        if (p1 == NULL) {
+            printf("Memory allocation failed!\n");
+            return 1;
+        }
+
+        // 2. calloc：分配并初始化为 0
+        int* p2 = (int*)calloc(10, sizeof(int));
+
+        // 3. realloc：重新调整内存大小
+        int* p3 = (int*)realloc(p1, sizeof(int) * 20);
+        if (p3 != NULL) {
+            p1 = p3;
+        }
+
+        // 使用内存...
+        for (int i = 0; i < 10; i++) {
+            p1[i] = i;
+        }
+
+        // 4. free：释放内存
+        free(p1);
+        free(p2);
+
+        return 0;
+    }
+    ```
+
+### C语言内存管理的痛点
+
+!!! danger "C风格内存管理的主要问题"
+
+    | 问题                | 说明                                | 示例                       |
+    | :------------------ | :---------------------------------- | :------------------------- |
+    | **类型不安全**      | `malloc` 返回 `void*`，需要强制转换 | `(int*)malloc(...)`        |
+    | **手动计算大小**    | 需要 `sizeof` 手动计算字节数        | `malloc(sizeof(int) * 10)` |
+    | **忘记释放**        | 导致内存泄漏                        | 没有对应的 `free`          |
+    | **重复释放**        | 导致程序崩溃                        | 对同一指针多次 `free`      |
+    | **释放后使用**      | 访问已释放的内存                    | `free(p); *p = 10;`        |
+    | **不调用构造/析构** | 对自定义类型无效                    | 不能用于C++对象            |
+
+## C++的 new 和 delete 操作符
+
+### 基本语法
 
 C++ 使用 `new` 操作符动态申请内存，其返回值是对应类型的指针。
 使用 `delete` 操作符释放内存，其操作数也必须是一个指针类型。
+它们比 `malloc/free` 更简洁、更安全。
 
-### 基础数据的动态创建与释放
+!!! abstract "new 和 delete 的基本语法"
 
-!!! example "new 和 delete 的基本用法"
+    ``` cpp
+    // 分配单个对象
+    类型* 指针名 = new 类型(初始化值);
+    delete 指针名;
+
+    // 分配数组
+    类型* 指针名 = new 类型[元素个数];
+    delete[] 指针名;
+    ```
+
+!!! example "基本用法"
 
     ``` cpp linenums="1"
-    // 申请和释放单个变量
-    int* p1 = new int;          // 申请一个 int 空间（未初始化，内容不确定）
-    int* p2 = new int(10);      // 申请一个 int 空间，初始化为 10
-    int* p3 = new int();        // 申请一个 int 空间，初始化为 0
+    #include <iostream>
+    using namespace std;
 
-    delete p1;                  // 释放 p1 指向的内存
-    delete p2;
-    delete p3;
+    int main() {
+        // 1. 分配单个 int
+        int* p1 = new int;          // 分配未初始化的 int
+        int* p2 = new int(10);      // 分配并初始化为 10
+        int* p3 = new int();        // 分配并初始化为 0
 
-    // 申请和释放数组
-    int* arr = new int[100];    // 申请 100 个 int 的连续空间（未初始化）
-    int* arr2 = new int[100](); // 申请 100 个 int，全部初始化为 0
+        cout << "*p1 = " << *p1 << endl;   // 未初始化，值不确定
+        cout << "*p2 = " << *p2 << endl;   // 10
+        cout << "*p3 = " << *p3 << endl;   // 0
 
-    delete[] arr;               // 释放数组空间（注意 []）
-    delete[] arr2;
+        // 释放单个对象
+        delete p1;
+        delete p2;
+        delete p3;
+
+        // 2. 分配数组
+        int* arr = new int[5];      // 分配 5 个 int（未初始化）
+        int* arr2 = new int[5]();   // 分配 5 个 int（全部初始化为 0）
+
+        for (int i = 0; i < 5; i++) {
+            arr[i] = i * 10;
+        }
+
+        // 释放数组（注意 delete[]）
+        delete[] arr;
+        delete[] arr2;
+
+        return 0;
+    }
     ```
+
+### new 的不同形式
 
 !!! info "new 的几种形式"
 
-    | 语法           | 说明                                                |
-    | :------------- | :-------------------------------------------------- |
-    | `new T`        | 分配一个 T 类型对象，不初始化                       |
-    | `new T()`      | 分配一个 T 类型对象，值初始化（内置类型初始化为 0） |
-    | `new T(value)` | 分配一个 T 类型对象，用 value 初始化                |
-    | `new T[n]`     | 分配 n 个 T 类型对象的数组，不初始化                |
-    | `new T[n]()`   | 分配 n 个 T 类型对象的数组，值初始化                |
+    | 形式           | 含义                               | 示例                      |
+    | :------------- | :--------------------------------- | :------------------------ |
+    | `new T`        | 分配 T 类型对象，不初始化          | `new int`                 |
+    | `new T()`      | 分配 T 类型对象，值初始化          | `new int()`（初始化为 0） |
+    | `new T(value)` | 分配 T 类型对象，用 value 初始化   | `new int(10)`             |
+    | `new T[n]`     | 分配 n 个 T 类型对象的数组         | `new int[10]`             |
+    | `new T[n]()`   | 分配 n 个 T 类型对象数组，值初始化 | `new int[10]()`           |
 
 !!! warning "new 和 delete 的关键规则"
 
@@ -88,7 +203,7 @@ C++ 使用 `new` 操作符动态申请内存，其返回值是对应类型的指
 ### 对象的动态创建与释放
 
 在面向对象语言中，动态内存分配最常见的用途是动态创建对象。
-`new` 在分配内存的同时会调用对象的构造函数，`delete` 在释放内存之前会调用对象的析构函数。
+`new` 在分配内存的同时会**调用对象的构造函数**，`delete` 会**调用析构函数**。这是 `new/delete` 与 `malloc/free` 最核心的区别。
 
 !!! example "动态创建和释放对象"
 
@@ -160,15 +275,100 @@ C++ 使用 `new` 操作符动态申请内存，其返回值是对应类型的指
     | `new T[n]`    | 分配内存 → 对每个元素调用默认构造函数 |
     | `delete[] p`  | 对每个元素调用析构函数 → 释放内存     |
 
-### 内存分配失败的处理
+## new/delete vs malloc/free
 
-当内存不足时，`new` 操作符会抛出 `bad_alloc` 异常（而不是返回空指针）。
+!!! summary "全面对比"
 
-!!! example "处理内存分配失败"
+    | 对比项         | `malloc` / `free`      | `new` / `delete`           |
+    | :------------- | :--------------------- | :------------------------- |
+    | **来源**       | C标准库（`<cstdlib>`） | C++语言操作符              |
+    | **内存大小**   | 需手动计算（`sizeof`） | 自动计算                   |
+    | **返回类型**   | `void*`（需强制转换）  | `T*`（正确类型）           |
+    | **初始化**     | 只分配，不初始化       | 可初始化（调用构造函数）   |
+    | **构造/析构**  | 不调用                 | **调用**                   |
+    | **失败处理**   | 返回 `NULL`            | 抛出 `std::bad_alloc` 异常 |
+    | **重新分配**   | 支持 `realloc`         | 不支持（需手动实现）       |
+    | **是否操作符** | 函数                   | 操作符（可重载）           |
+    | **使用场景**   | C兼容、纯内存分配      | C++对象分配                |
+
+!!! example "对比示例"
 
     ``` cpp linenums="1"
     #include <iostream>
-    #include <new>      // 包含 bad_alloc 异常
+    #include <cstdlib>
+    using namespace std;
+
+    class Student {
+    private:
+        string name;
+        int age;
+    public:
+        Student(const string& n, int a) : name(n), age(a) {
+            cout << "Student constructed: " << name << endl;
+        }
+        ~Student() {
+            cout << "Student destroyed: " << name << endl;
+        }
+    };
+
+    int main() {
+        // C风格：不会调用构造/析构
+        cout << "=== C style (malloc/free) ===" << endl;
+        Student* s1 = (Student*)malloc(sizeof(Student));
+        // 内存未初始化，不能使用
+        free(s1);   // 不会调用析构函数
+
+        // C++风格：调用构造/析构
+        cout << "\n=== C++ style (new/delete) ===" << endl;
+        Student* s2 = new Student("Alice", 20);
+        delete s2;   // 调用析构函数
+
+        // 数组分配对比
+        cout << "\n=== Array allocation ===" << endl;
+        // C风格：分配并释放
+        int* arr1 = (int*)malloc(sizeof(int) * 10);
+        free(arr1);
+
+        // C++风格
+        int* arr2 = new int[10];
+        delete[] arr2;
+
+        return 0;
+    }
+    ```
+
+    运行结果：
+
+    ```
+    === C style (malloc/free) ===
+
+    === C++ style (new/delete) ===
+    Student constructed: Alice
+    Student destroyed: Alice
+
+    === Array allocation ===
+    ```
+
+## 内存分配失败的处理
+
+### C语言风格：返回 NULL
+
+``` c
+int* p = (int*)malloc(sizeof(int) * 1000);
+if (p == NULL) {
+    // 处理分配失败
+}
+```
+
+### C++风格：抛出异常
+
+C++中，当 `new` 分配失败时，会抛出 `std::bad_alloc` 异常。
+
+!!! example "处理 bad_alloc 异常"
+
+    ``` cpp linenums="1"
+    #include <iostream>
+    #include <new>
     using namespace std;
 
     int main() {
@@ -178,15 +378,32 @@ C++ 使用 `new` 操作符动态申请内存，其返回值是对应类型的指
             // 使用 p...
             delete[] p;
         } catch (const bad_alloc& e) {
-            cout << "内存分配失败: " << e.what() << endl;
+            cout << "Memory allocation failed: " << e.what() << endl;
         }
 
-        // 或者使用 nothrow 版本（返回空指针）
-        int* p2 = new (nothrow) int[1000000000];
-        if (p2 == nullptr) {
-            cout << "内存分配失败" << endl;
+        return 0;
+    }
+    ```
+
+### nothrow 版本
+
+如果希望 `new` 失败时返回 `NULL` 而不是抛出异常，可以使用 `nothrow` 版本。
+
+!!! example "nothrow 版本的 new"
+
+    ``` cpp linenums="1"
+    #include <iostream>
+    #include <new>
+    using namespace std;
+
+    int main() {
+        // nothrow 版本：失败返回 nullptr
+        int* p = new (nothrow) int[1000000000];
+
+        if (p == nullptr) {
+            cout << "Memory allocation failed" << endl;
         } else {
-            delete[] p2;
+            delete[] p;
         }
 
         return 0;
@@ -303,115 +520,73 @@ C++ 使用 `new` 操作符动态申请内存，其返回值是对应类型的指
     }
     ```
 
-## 动态数组的封装 （TODO)
+## 常见错误与最佳实践
 
-手动管理动态数组比较繁琐，而且容易出错。一种常见的做法是将动态数组封装成类，提供更安全、更便利的接口。
+### 常见错误
 
-!!! example "动态数组类的封装"
+!!! danger "动态内存管理的常见错误"
 
-    ``` cpp linenums="1"
-    #include <iostream>
-    #include <cassert>
-    using namespace std;
+    | 错误类型               | 错误示例                              | 后果                     |
+    | :--------------------- | :------------------------------------ | :----------------------- |
+    | **内存泄漏**           | `new` 后没有 `delete`                 | 内存无法回收             |
+    | **重复释放**           | 对同一指针多次 `delete`               | 程序崩溃                 |
+    | **释放后使用**         | `delete p; *p = 10;`                  | 未定义行为               |
+    | **混用分配方式**       | `new` 配 `free`，`malloc` 配 `delete` | 未定义行为               |
+    | **数组释放错误**       | `new[]` 配 `delete`（少 `[]`）        | 仅释放首元素，未定义行为 |
+    | **忘记置空**           | 释放后未置 `nullptr`                  | 可能被重复使用           |
+    | **内存分配失败未处理** | 未检查 `new` 是否成功                 | 程序崩溃                 |
 
-    class Point {
-    public:
-        Point(int x = 0, int y = 0) : x(x), y(y) {
-            cout << "Constructor called." << endl;
-        }
-        ~Point() {
-            cout << "Destructor called." << endl;
-        }
+!!! example "错误的后果"
 
-        void move(int dx, int dy) {
-            x += dx;
-            y += dy;
-        }
+    ``` cpp
+    // 1. 内存泄漏
+    void leakyFunction() {
+        int* p = new int(10);
+        // 忘记 delete p; → p 指向的内存无法释放
+    }
 
-        int getX() const { return x; }
-        int getY() const { return y; }
-        void show() const {
-            cout << "Point(" << x << ", " << y << ")" << endl;
-        }
+    // 2. 重复释放
+    void doubleFree() {
+        int* p = new int(10);
+        delete p;
+        delete p;   // 危险！重复释放
+    }
 
-    private:
-        int x, y;
-    };
+    // 3. 释放后使用
+    void useAfterFree() {
+        int* p = new int(10);
+        delete p;
+        *p = 20;    // 危险！访问已释放的内存
+    }
 
-    // 动态数组封装类
-    class ArrayOfPoints {
-    public:
-        // 构造函数：动态分配数组
-        ArrayOfPoints(int size) : size(size) {
-            points = new Point[size];
-        }
+    // 4. 混用 new/free（错误）
+    void mixedAllocation() {
+        int* p = new int(10);
+        free(p);    // 危险！行为未定义
+    }
 
-        // 析构函数：释放动态数组
-        ~ArrayOfPoints() {
-            cout << "Deleting array..." << endl;
-            delete[] points;
-        }
-
-        // 元素访问：返回引用，支持读写；带越界检查
-        Point& element(int index) {
-            assert(index >= 0 && index < size);
-            return points[index];
-        }
-
-        // 常版本：用于只读访问
-        const Point& element(int index) const {
-            assert(index >= 0 && index < size);
-            return points[index];
-        }
-
-        // 获取数组大小
-        int getSize() const { return size; }
-
-        // 重载下标运算符（更自然的访问方式）
-        Point& operator[](int index) {
-            return element(index);
-        }
-
-        const Point& operator[](int index) const {
-            return element(index);
-        }
-
-    private:
-        Point* points;    // 指向动态数组首地址
-        int size;         // 数组大小
-    };
-
-    int main() {
-        int count;
-        cout << "Please enter the count of points: ";
-        cin >> count;
-
-        ArrayOfPoints arr(count);
-
-        // 使用 element 函数访问
-        arr.element(0).move(5, 10);
-        arr.element(1).move(15, 20);
-
-        // 使用重载的下标运算符访问
-        arr[0].show();    // Point(5, 10)
-        arr[1].show();    // Point(15, 20)
-
-        // 越界访问会被 assert 拦截（调试模式下）
-        // arr[2].show();  // 断言失败
-
-        cout << "Array size: " << arr.getSize() << endl;
-
-        return 0;
+    // 5. 数组释放错误
+    void wrongArrayDelete() {
+        int* p = new int[10];
+        delete p;   // 错误！应该用 delete[]
     }
     ```
 
-!!! success "封装的好处"
+### 最佳实践
 
-    - **自动管理内存**：构造函数中分配，析构函数中释放，避免忘记 `delete`。
-    - **越界检查**：`element()` 函数使用 `assert` 检查下标是否合法，防止内存越界。
-    - **简化使用**：用户不需要关心底层的内存分配细节。
-    - **可复用**：封装后的类可以在多个地方安全使用。
-    - **更自然的接口**：可以重载 `operator[]` 让访问更自然。
+!!! success "动态内存管理的最佳实践"
+
+    1. **使用 `new`/`delete` 替代 `malloc`/`free`**：类型安全、自动调用构造/析构。
+
+    2. **配对使用**：`new` 配 `delete`，`new[]` 配 `delete[]`。
+
+    3. **释放后置空**：`delete p; p = nullptr;` 防止重复释放。
+
+    4. **使用智能指针**（`unique_ptr`、`shared_ptr`）：自动管理内存，避免手动 `delete`。
+
+    5. **优先使用容器**：`vector`、`string` 等容器自动管理内存。
+
+    6. **检查分配结果**：处理 `bad_alloc` 异常或使用 `nothrow` 版本。
 
 ## 智能指针
 
@@ -568,42 +743,153 @@ C++ 使用 `new` 操作符动态申请内存，其返回值是对应类型的指
     - **使用 `make_shared` 和 `make_unique`**：比直接使用 `new` 更安全、更高效。
     - **避免手动 `delete`**：使用智能指针后，通常不需要再手动调用 `delete`。
 
-## 动态内存分配的常见错误
+## 综合示例
 
-!!! danger "常见错误及防范"
+!!! example "动态内存分配"
 
-    | 错误类型               | 错误示例                | 后果       | 正确做法                                 |
-    | :--------------------- | :---------------------- | :--------- | :--------------------------------------- |
-    | **忘记释放内存**       | `new` 后没有 `delete`   | 内存泄漏   | 使用智能指针或确保配对 `delete`          |
-    | **释放顺序错误**       | `delete[]` 用于单个对象 | 未定义行为 | `new` 配 `delete`，`new[]` 配 `delete[]` |
-    | **重复释放**           | 对同一指针多次 `delete` | 程序崩溃   | 释放后置空指针，使用智能指针             |
-    | **使用已释放的内存**   | 释放后继续使用指针      | 未定义行为 | 释放后置空指针，使用智能指针             |
-    | **内存分配失败未处理** | 未检查 `new` 是否成功   | 程序崩溃   | 捕获 `bad_alloc` 异常                    |
+    ``` cpp linenums="1"
+    #include <iostream>
+    #include <string>
+    using namespace std;
+
+    class Person {
+    private:
+        string name;
+        int age;
+    public:
+        Person(const string& n = "", int a = 0) : name(n), age(a) {
+            cout << "Person constructed: " << name << endl;
+        }
+        ~Person() {
+            cout << "Person destroyed: " << name << endl;
+        }
+
+        void introduce() const {
+            cout << "I'm " << name << ", " << age << " years old." << endl;
+        }
+    };
+
+    int main() {
+        cout << "=== 1. 单个对象的分配和释放 ===" << endl;
+        Person* p1 = new Person("Alice", 25);
+        p1->introduce();
+        delete p1;
+        p1 = nullptr;
+
+        cout << "\n=== 2. 对象数组的分配和释放 ===" << endl;
+        Person* arr = new Person[3] {
+            Person("Bob", 20),
+            Person("Charlie", 22),
+            Person("David", 24)
+        };
+
+        for (int i = 0; i < 3; i++) {
+            arr[i].introduce();
+        }
+        delete[] arr;
+
+        cout << "\n=== 3. 基本类型的分配 ===" << endl;
+        // 基本类型初始化
+        int* n1 = new int;        // 未初始化
+        int* n2 = new int(100);   // 初始化为 100
+        int* n3 = new int();      // 初始化为 0
+
+        cout << "*n1 = " << *n1 << " (未初始化)" << endl;
+        cout << "*n2 = " << *n2 << endl;
+        cout << "*n3 = " << *n3 << endl;
+
+        delete n1;
+        delete n2;
+        delete n3;
+
+        cout << "\n=== 4. 内存分配失败处理 ===" << endl;
+        try {
+            // 尝试分配大量内存
+            int* huge = new int[1000000000];
+            cout << "Memory allocated successfully" << endl;
+            delete[] huge;
+        } catch (const bad_alloc& e) {
+            cout << "Allocation failed: " << e.what() << endl;
+        }
+
+        cout << "\n=== 5. 容器自动管理内存（推荐） ===" << endl;
+        // 使用 vector 自动管理内存，无需手动 delete
+        vector<Person> people;
+        people.push_back(Person("Eve", 30));
+        people.push_back(Person("Frank", 28));
+        for (const auto& p : people) {
+            p.introduce();
+        }
+        // vector 在析构时自动释放内存
+
+        return 0;
+    }
+    ```
+
+    运行结果
+
+    ```
+    === 1. 单个对象的分配和释放 ===
+    Person constructed: Alice
+    I'm Alice, 25 years old.
+    Person destroyed: Alice
+
+    === 2. 对象数组的分配和释放 ===
+    Person constructed: Bob
+    Person constructed: Charlie
+    Person constructed: David
+    I'm Bob, 20 years old.
+    I'm Charlie, 22 years old.
+    I'm David, 24 years old.
+    Person destroyed: David
+    Person destroyed: Charlie
+    Person destroyed: Bob
+
+    === 3. 基本类型的分配 ===
+    *n1 = 0 (未初始化)
+    *n2 = 100
+    *n3 = 0
+
+    === 4. 内存分配失败处理 ===
+    Allocation failed: std::bad_alloc
+
+    === 5. 容器自动管理内存（推荐） ===
+    Person constructed: Eve
+    Person constructed: Frank
+    I'm Eve, 30 years old.
+    I'm Frank, 28 years old.
+    Person destroyed: Frank
+    Person destroyed: Eve
+    ```
 
 ## 小结
 
-1. **动态内存分配**使用 `new` 和 `delete` 在运行时管理内存，灵活但需要谨慎。
+1.  **动态内存分配**使用 `new` 和 `delete` 在运行时管理内存，灵活但需要谨慎。
 
-2. **new 操作符**：
-3. 在堆上分配内存。
-4. 自动调用对象的构造函数。
-5. 返回指向分配内存的指针。
+2.  **new 操作符**：
+    - 在堆上分配内存。
+    - 自动调用对象的构造函数。
+    - 返回指向分配内存的指针。
 
-6. **delete 操作符**：
-7. 调用对象的析构函数。
-8. 释放堆上的内存。
-9. 必须与 `new` 配对使用。
+3.  **delete 操作符**：
+    - 调用对象的析构函数。
+    - 释放堆上的内存。
+    - 必须与 `new` 配对使用。
 
-10. **动态数组**：
-11. 使用 `new[]` 和 `delete[]`。
-12. 元素必须具有默认构造函数。
-13. 构造顺序与析构顺序相反。
+4.  **动态数组**：
+    - 使用 `new[]` 和 `delete[]`。
+    - 元素必须具有默认构造函数。
+    - 构造顺序与析构顺序相反。
 
-14. **封装动态数组**：将动态数组封装为类，可以简化内存管理，增强安全性。
+5.  **错误处理**：
+    - C++ 中 `new` 失败抛出 `std::bad_alloc`。
+    - 可使用 `new (nothrow)` 返回 `nullptr`。
 
-15. **智能指针**（C++11）：
-16. `unique_ptr`：独占所有权。
-17. `shared_ptr`：共享所有权，引用计数。
-18. `weak_ptr`：弱引用，解决循环引用。
+6.  **智能指针**（C++11）：
+    - `unique_ptr`：独占所有权。
+    - `shared_ptr`：共享所有权，引用计数。
+    - `weak_ptr`：弱引用，解决循环引用。
 
-19. **最佳实践**：优先使用智能指针，避免手动管理动态内存，减少内存管理错误。
+7.  **最佳实践**：
+    - 优先使用 `new`/`delete` 而非 `malloc`/`free`。
+    - 优先使用智能指针，避免手动管理动态内存，减少内存管理错误。

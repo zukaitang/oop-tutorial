@@ -47,10 +47,14 @@ Copyright &copy; 2026 Zukai TANG
 nav = [
   { "主页" = "index.md" },
   { "C/C++基础语法差异" = [
-      "1_grammer/1_expression.md",     
-      "1_grammer/2_function.md", 
-      "1_grammer/3_enumration.md", 
-      "1_grammer/4_mem_allocation.md", 
+      "1_grammer/1_cpp_overview.md",     
+      "1_grammer/2_keyword.md", 
+      "1_grammer/3_reference.md", 
+      "1_grammer/4_foreach.md", 
+      "1_grammer/5_function.md", 
+      "1_grammer/6_enumration.md", 
+      "1_grammer/7_input_and_output.md", 
+      "1_grammer/8_namespace.md", 
   ]},
   { "封装 Encapsulation" = [
       "2_encapsulation/1_from_c_to_cpp.md",     
@@ -71,6 +75,7 @@ nav = [
       "3_inheritance/2_inheritance_approach.md", 
       "3_inheritance/3_constractor_of_inheritance.md", 
       "3_inheritance/4_multi_inheritance_and_virtual_base_class.md",       
+      "3_inheritance/5_inheritance_vs_composition.md",       
   ]},
   { "多态 Polymorphism" = [
       "4_polymorphism/1_type_compatibility.md", 
@@ -88,12 +93,12 @@ nav = [
       "6_template/1_function_template.md",
       "6_template/2_class_template.md",
   ]},
-  { "其它 Miscellaneous" = [
-      "7_miscellaneous/1_multi_file_and_compile.md",     
-
-      "demo.md",
-      "markdown.md"      
-  ]},
+#  { "其它 Miscellaneous" = [
+#      "7_miscellaneous/1_multi_file_and_compile.md",     
+#
+#      "demo.md",
+#      "markdown.md"      
+#  ]},
 ]
 
 # With the "extra_css" option you can add your own CSS styling to customize
