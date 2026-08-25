@@ -50,4 +50,7 @@ tests/
 .coverage
 htmlcov/
 .tox/
-少数派.md
+
+# 其它
+
+ppt/
