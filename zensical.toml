@@ -55,6 +55,24 @@ nav = [
       "1_grammer/6_enumration.md", 
       "1_grammer/7_input_and_output.md", 
       "1_grammer/8_namespace.md", 
+      {"练习" = [
+      "1_grammer/exercises/1_1_constexpr.md",
+      "1_grammer/exercises/1_2_auto_decltype.md",
+      "1_grammer/exercises/1_3_nullptr.md",
+      "1_grammer/exercises/1_4_swap.md",
+      "1_grammer/exercises/1_5_reference_for_array_element.md",
+      "1_grammer/exercises/1_6_sum_positive.md",
+      "1_grammer/exercises/1_7_increase_scores.md",
+      "1_grammer/exercises/1_8_count_long_names.md",
+      "1_grammer/exercises/1_9_traffic_light.md",
+      "1_grammer/exercises/1_10_course_level.md",
+      "1_grammer/exercises/1_11_print_sum.md",
+      "1_grammer/exercises/1_12_print_greeting.md",
+      "1_grammer/exercises/1_13_read_score.md",
+      "1_grammer/exercises/1_14_namespace_calculate.md",
+      "1_grammer/exercises/1_15_using_is_even.md",
+      # "1_grammer/exercises/answers.md",
+      ]},
   ]},
   { "封装 Encapsulation" = [
       "2_encapsulation/1_from_c_to_cpp.md",     
@@ -89,7 +107,7 @@ nav = [
       "5_operator_overloading/3_use_non_member_function.md",
       "5_operator_overloading/4_best_practice.md",
   ]},
-  { "模板 template" = [
+  { "模板 Template" = [
       "6_template/1_function_template.md",
       "6_template/2_class_template.md",
   ]},
@@ -221,7 +239,7 @@ features = [
     # Turn on this feature to expand all collapsible sections in the
     # navigation sidebar by default.
     # https://zensical.org/docs/setup/navigation/#navigation-expansion
-    "navigation.expand",
+    # "navigation.expand",
 
     # This feature turns on navigation elements in the footer that allow the
     # user to navigate to a next or previous page.
