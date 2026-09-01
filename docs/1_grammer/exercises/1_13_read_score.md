@@ -82,7 +82,6 @@ void test() {
 
 int main() {
     test();
-
     std::cout << "本关测试通过" << std::endl;
     return 0;
 }

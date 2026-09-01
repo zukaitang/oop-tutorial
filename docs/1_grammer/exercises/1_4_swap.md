@@ -16,7 +16,7 @@
 
 引用是已存在变量的别名，定义时必须初始化。
 
-```cpp
+``` cpp
 int x = 10;
 int& ref = x;
 
@@ -29,7 +29,7 @@ ref = 20;  // 修改 ref，也会修改 x
 
 函数参数声明为 `int&` 时，函数可以直接修改调用者传入的变量。
 
-```cpp
+``` cpp
 void increase(int& value) {
     value += 1;
 }
@@ -40,7 +40,7 @@ increase(score);  // score 变为 81
 
 与指针参数相比，引用参数在调用时不需要使用取地址运算符：
 
-```cpp
+``` cpp
 // 指针参数：swap(&x, &y)
 // 引用参数：swapValues(x, y)
 ```
@@ -51,7 +51,7 @@ increase(score);  // score 变为 81
 
 交换两个变量的值通常需要一个临时变量，避免第一个赋值操作覆盖原来的数据。
 
-```cpp
+``` cpp
 int temp = a;
 a = b;
 b = temp;
@@ -63,19 +63,19 @@ b = temp;
 2. 完成函数 `swapValues` 的函数体。
 3. 函数必须采用以下声明形式：
 
-```cpp
+``` cpp
 void swapValues(int& a, int& b);
 ```
 
-4. 不得使用指针参数或取地址运算符调用函数。
-5. 不得调用标准库的 `std::swap`。
-6. 函数调用后，`a` 与 `b` 所绑定变量的值必须互换。
-7. 在 `test` 函数中使用 `assert` 验证交换结果。
-8. 在 `main` 函数中调用 `test` 函数，并保留测试通过信息与返回语句。
+1. 不得使用指针参数或取地址运算符调用函数。
+2. 不得调用标准库的 `std::swap`。
+3. 函数调用后，`a` 与 `b` 所绑定变量的值必须互换。
+4. 在 `test` 函数中使用 `assert` 验证交换结果。
+5. 在 `main` 函数中调用 `test` 函数，并保留测试通过信息与返回语句。
 
 ## 待完成代码
 
-```cpp
+``` cpp
 #include <cassert>
 #include <iostream>
 
@@ -106,7 +106,6 @@ void test() {
 
 int main() {
     test();
-
     std::cout << "本关测试通过" << std::endl;
     return 0;
 }
@@ -116,15 +115,15 @@ int main() {
 
 `test` 函数应至少覆盖以下三种情况：
 
-| 测试项 | 调用前 | 函数调用 | 预期结果 |
-|---|---|---|---|
-| 两个正整数 | `x = 10, y = 20` | `swapValues(x, y)` | `x = 20, y = 10` |
-| 负数与零 | `a = -5, b = 0` | `swapValues(a, b)` | `a = 0, b = -5` |
-| 两个相同值 | `same1 = 42, same2 = 42` | `swapValues(same1, same2)` | 两者仍为 `42` |
+| 测试项     | 调用前                   | 函数调用                   | 预期结果         |
+| ---------- | ------------------------ | -------------------------- | ---------------- |
+| 两个正整数 | `x = 10, y = 20`         | `swapValues(x, y)`         | `x = 20, y = 10` |
+| 负数与零   | `a = -5, b = 0`          | `swapValues(a, b)`         | `a = 0, b = -5`  |
+| 两个相同值 | `same1 = 42, same2 = 42` | `swapValues(same1, same2)` | 两者仍为 `42`    |
 
 如果函数错误地采用值传递：
 
-```cpp
+``` cpp
 void swapValues(int a, int b) {
     int temp = a;
     a = b;

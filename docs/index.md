@@ -50,7 +50,7 @@
 
 ### 教材
 
-![教材](image1.png){ width="300" }
+![教材](assets/image1.png){ width="300" }
 
 !!! info "**《C++语言程序设计（第5版）》**"
 
@@ -60,7 +60,7 @@
 
 ### 参考书籍
 
-![教材](image2.png){ width="300" }
+![教材](assets/image2.png){ width="300" }
 
 !!! info "**《C++ Primer Plus（第6版）》**"
 
@@ -68,7 +68,7 @@
     - 出版社：人民邮电出版社
     - ISBN：9787115521644
 
-![教材](image3.png){ width="300" }
+![教材](assets/image3.png){ width="300" }
 
 !!! info "**《Effective C++ -- she改善程序与设计的55个具体做法（第3版）》**"
 
@@ -76,7 +76,7 @@
     - 出版社：电子工业出版社
     - ISBN：9787121123320
 
-![教材](image4.png){ width="300" }
+![教材](assets/image4.png){ width="300" }
 
 !!! info "**《设计模式：可复用面向对象软件的基础》**"
 

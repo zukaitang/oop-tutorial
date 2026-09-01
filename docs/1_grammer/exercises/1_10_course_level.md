@@ -14,7 +14,7 @@
 
 作用域枚举不会隐式转换为整数：
 
-```cpp
+``` cpp
 enum class CourseLevel {
     Beginner,
     Intermediate,
@@ -27,7 +27,7 @@ CourseLevel level = CourseLevel::Beginner;
 
 如需从整数构造一个枚举值，必须使用显式转换：
 
-```cpp
+``` cpp
 auto unknownLevel = static_cast<CourseLevel>(99);
 ```
 
@@ -37,7 +37,7 @@ auto unknownLevel = static_cast<CourseLevel>(99);
 
 函数可以使用 `switch` 根据枚举值返回不同的字符串字面量：
 
-```cpp
+``` cpp
 const char* toString(CourseLevel level) {
     switch (level) {
     case CourseLevel::Beginner:
@@ -57,18 +57,18 @@ const char* toString(CourseLevel level) {
 3. 完成函数 `toString` 的函数体。
 4. 函数必须采用以下声明形式：
 
-```cpp
+``` cpp
 const char* toString(CourseLevel level);
 ```
 
-5. 必须使用 `switch` 语句完成转换。
-6. 分别返回 `"Beginner"`、`"Intermediate"`、`"Advanced"`。
-7. 使用 `default` 分支处理未定义枚举值，并返回 `"Unknown"`。
-8. 在 `test` 函数中使用 `std::strcmp` 与 `assert` 验证返回结果。
+1. 必须使用 `switch` 语句完成转换。
+2. 分别返回 `"Beginner"`、`"Intermediate"`、`"Advanced"`。
+3. 使用 `default` 分支处理未定义枚举值，并返回 `"Unknown"`。
+4. 在 `test` 函数中使用 `std::strcmp` 与 `assert` 验证返回结果。
 
 ## 待完成代码
 
-```cpp
+``` cpp
 #include <cassert>
 #include <cstring>
 #include <iostream>
@@ -96,7 +96,6 @@ void test() {
 
 int main() {
     test();
-
     std::cout << "本关测试通过" << std::endl;
     return 0;
 }
@@ -104,12 +103,12 @@ int main() {
 
 ## 测试说明
 
-| 测试项 | 函数调用 | 预期结果 |
-|---|---|---|
-| 入门课程 | `toString(CourseLevel::Beginner)` | `"Beginner"` |
-| 中级课程 | `toString(CourseLevel::Intermediate)` | `"Intermediate"` |
-| 高级课程 | `toString(CourseLevel::Advanced)` | `"Advanced"` |
-| 未定义枚举值 | `toString(static_cast<CourseLevel>(99))` | `"Unknown"` |
+| 测试项       | 函数调用                                 | 预期结果         |
+| ------------ | ---------------------------------------- | ---------------- |
+| 入门课程     | `toString(CourseLevel::Beginner)`        | `"Beginner"`     |
+| 中级课程     | `toString(CourseLevel::Intermediate)`    | `"Intermediate"` |
+| 高级课程     | `toString(CourseLevel::Advanced)`        | `"Advanced"`     |
+| 未定义枚举值 | `toString(static_cast<CourseLevel>(99))` | `"Unknown"`      |
 
 `std::strcmp` 比较两个 C 字符串的内容：返回值为 `0` 表示两个字符串内容相同。
 

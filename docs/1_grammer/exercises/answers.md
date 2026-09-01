@@ -257,4 +257,17 @@ namespace NumberUtils {
         return value % 2 == 0;
     }
 }
+
+void test() {
+    // 仅引入 NumberUtils 中的 isEven
+    using NumberUtils::isEven;
+
+    assert(isEven(0));
+    assert(isEven(8));
+    assert(isEven(-12));
+
+    assert(!isEven(1));
+    assert(!isEven(99));
+    assert(!isEven(-7));
+}
 ```
