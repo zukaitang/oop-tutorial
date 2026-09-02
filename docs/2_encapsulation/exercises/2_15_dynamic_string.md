@@ -1,4 +1,4 @@
-# 练习：使用动态内存保存 C 字符串
+# 练习15：使用动态内存保存 C 字符串
 
 ---
 
@@ -12,7 +12,7 @@
 
 C 风格字符串以空字符 `\0` 结尾。若字符串长度为 `length`，保存它需要申请 `length + 1` 个字符：
 
-```cpp
+``` cpp
 char* content = new char[length + 1];
 ```
 
@@ -22,7 +22,7 @@ char* content = new char[length + 1];
 
 不能只保存传入指针的地址，否则外部字符数组发生变化或失效后，类中的内容也会受到影响。应申请自己的内存并复制内容：
 
-```cpp
+``` cpp
 content = new char[std::strlen(text) + 1];
 std::strcpy(content, text);
 ```
@@ -45,15 +45,15 @@ std::strcpy(content, text);
    void Print() const;
    ```
 
-4. 构造函数申请足够的字符数组空间，复制参数字符串；析构函数使用 `delete[]` 释放内存。
-5. `Length` 返回字符串长度；`Get` 返回指定下标字符并使用断言检查下标；`Print` 输出字符串和换行。
-6. 在 `test` 中先修改原始字符数组，再验证 `Text` 对象仍保留构造时复制的内容；同时断言长度、字符和输出。
+1. 构造函数申请足够的字符数组空间，复制参数字符串；析构函数使用 `delete[]` 释放内存。
+2. `Length` 返回字符串长度；`Get` 返回指定下标字符并使用断言检查下标；`Print` 输出字符串和换行。
+3. 在 `test` 中先修改原始字符数组，再验证 `Text` 对象仍保留构造时复制的内容；同时断言长度、字符和输出。
 
 ## 待完成代码
 
 ### Text.h
 
-```cpp
+``` cpp
 #ifndef TEXT_H
 #define TEXT_H
 
@@ -66,7 +66,7 @@ std::strcpy(content, text);
 
 ### Text.cpp
 
-```cpp
+``` cpp
 #include "Text.h"
 
 // TODO：定义 Text 的成员函数
@@ -74,7 +74,7 @@ std::strcpy(content, text);
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Text.h"
 
 #include <cassert>
@@ -108,11 +108,11 @@ int main() {
 
 `source` 从 `"hello"` 改为 `"Hello"` 后，`Text` 中保存的副本仍应为 `"hello"`。预期输出：
 
-```text
+``` text
 hello
 ```
 
-```bash
+``` bash
 g++ -std=c++11 Text.cpp main.cpp -o dynamic_string
 ```
 

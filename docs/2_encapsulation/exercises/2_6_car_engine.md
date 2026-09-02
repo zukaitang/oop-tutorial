@@ -1,4 +1,4 @@
-# 练习：使用组合类模拟汽车发动机
+# 练习6：使用组合类模拟汽车发动机
 
 ---
 
@@ -17,7 +17,7 @@
 - `Engine` 负责记录发动机是否启动、当前转速；
 - `Car` 持有一个 `Engine` 对象，并将启动、加速、熄火等请求委托给发动机。
 
-```cpp
+``` cpp
 class Car {
 private:
     Engine engine;
@@ -28,7 +28,7 @@ private:
 
 在 `Car` 的成员函数中，可以直接使用成员对象名调用其公有函数：
 
-```cpp
+``` cpp
 void Car::Start() {
     engine.Start();
 }
@@ -54,7 +54,7 @@ void Car::Start() {
    int GetRpm() const;
    ```
 
-3. 在同一头文件中声明 `Car` 类，并将 `Engine engine` 声明为私有成员。`Car` 应提供：
+1. 在同一头文件中声明 `Car` 类，并将 `Engine engine` 声明为私有成员。`Car` 应提供：
 
    ```cpp
    void Start();
@@ -63,21 +63,21 @@ void Car::Start() {
    void PrintStatus() const;
    ```
 
-4. 在 `Car.cpp` 中定义所有成员函数。`Car` 的 `Start`、`Accelerate`、`Stop` 分别调用内部 `engine` 对象的对应函数。
-5. `PrintStatus` 按如下格式输出：
+1. 在 `Car.cpp` 中定义所有成员函数。`Car` 的 `Start`、`Accelerate`、`Stop` 分别调用内部 `engine` 对象的对应函数。
+2. `PrintStatus` 按如下格式输出：
 
    ```text
    发动机 ON
    转速 1800
    ```
 
-6. 在 `main.cpp` 中创建 `Car` 对象，测试启动和两次加速后的状态，以及熄火后的状态；使用 `assert` 对输出进行验证。
+1. 在 `main.cpp` 中创建 `Car` 对象，测试启动和两次加速后的状态，以及熄火后的状态；使用 `assert` 对输出进行验证。
 
 ## 待完成代码
 
 ### Car.h
 
-```cpp
+``` cpp
 #ifndef CAR_H
 #define CAR_H
 
@@ -88,7 +88,7 @@ void Car::Start() {
 
 ### Car.cpp
 
-```cpp
+``` cpp
 #include "Car.h"
 
 // TODO：定义 Engine 和 Car 的成员函数
@@ -96,7 +96,7 @@ void Car::Start() {
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Car.h"
 
 #include <cassert>
@@ -137,7 +137,7 @@ int main() {
 
 可使用以下命令编译三个文件：
 
-```bash
+``` bash
 g++ -std=c++11 Car.cpp main.cpp -o car_engine
 ```
 

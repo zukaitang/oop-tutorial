@@ -1,4 +1,4 @@
-# 练习：使用 vector 管理学生分数
+# 练习20：使用 vector 管理学生分数
 
 ---
 
@@ -12,7 +12,7 @@
 
 `std::vector` 是可自动扩容的动态数组容器。与手动使用 `new[]`/`delete[]` 相比，它会自动管理内存，通常更安全方便。
 
-```cpp
+``` cpp
 std::vector<int> scores;
 scores.push_back(90);
 scores.push_back(85);
@@ -26,7 +26,7 @@ scores.push_back(85);
 
 遍历时可使用范围 `for` 循环：
 
-```cpp
+``` cpp
 for (int score : scores) {
     sum += score;
 }
@@ -45,15 +45,15 @@ for (int score : scores) {
    void Print() const;
    ```
 
-4. `Add` 使用 `push_back` 添加分数；`Average` 返回平均分。若列表为空，返回 `0.0`。
-5. `Print` 按“分数列表：90 85 76”的格式输出，元素间一个空格，末尾换行。
-6. 在 `test` 中添加三项分数，使用 `assert` 验证长度、平均分和输出。
+1. `Add` 使用 `push_back` 添加分数；`Average` 返回平均分。若列表为空，返回 `0.0`。
+2. `Print` 按“分数列表：90 85 76”的格式输出，元素间一个空格，末尾换行。
+3. 在 `test` 中添加三项分数，使用 `assert` 验证长度、平均分和输出。
 
 ## 待完成代码
 
 ### ScoreList.h
 
-```cpp
+``` cpp
 #ifndef SCORE_LIST_H
 #define SCORE_LIST_H
 
@@ -67,7 +67,7 @@ for (int score : scores) {
 
 ### ScoreList.cpp
 
-```cpp
+``` cpp
 #include "ScoreList.h"
 
 // TODO：定义 ScoreList 的成员函数
@@ -75,7 +75,7 @@ for (int score : scores) {
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "ScoreList.h"
 
 #include <cassert>
@@ -109,11 +109,11 @@ int main() {
 
 三项分数为 `90`、`85`、`76`，平均分为 `251 / 3`。预期输出：
 
-```text
+``` text
 分数列表：90 85 76
 ```
 
-```bash
+``` bash
 g++ -std=c++11 ScoreList.cpp main.cpp -o vector_scores
 ```
 

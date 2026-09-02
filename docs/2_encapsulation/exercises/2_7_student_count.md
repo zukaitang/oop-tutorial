@@ -1,4 +1,4 @@
-# 练习：使用静态成员统计学生对象数量
+# 练习7：使用静态成员统计学生对象数量
 
 ---
 
@@ -12,7 +12,7 @@
 
 静态数据成员属于类本身，而不属于某一个对象。同一个类的所有对象共享同一份静态数据成员。
 
-```cpp
+``` cpp
 class Student {
 private:
     static int count;
@@ -25,7 +25,7 @@ int Student::count = 0;  // 在类外定义并初始化
 
 静态成员函数可使用类名直接调用，不需要先创建对象。静态成员函数只能直接访问静态成员。
 
-```cpp
+``` cpp
 int Student::GetCount() {
     return count;
 }
@@ -44,14 +44,14 @@ int current = Student::GetCount();
    static int GetCount();
    ```
 
-3. 在 `Student.cpp` 中将 `Student::count` 初始化为 `0`；构造函数使其加一，析构函数使其减一。
-4. 在 `test` 中用 `assert` 验证不同作用域内对象数量的变化，并验证输出。
+1. 在 `Student.cpp` 中将 `Student::count` 初始化为 `0`；构造函数使其加一，析构函数使其减一。
+2. 在 `test` 中用 `assert` 验证不同作用域内对象数量的变化，并验证输出。
 
 ## 待完成代码
 
 ### Student.h
 
-```cpp
+``` cpp
 #ifndef STUDENT_H
 #define STUDENT_H
 
@@ -62,7 +62,7 @@ int current = Student::GetCount();
 
 ### Student.cpp
 
-```cpp
+``` cpp
 #include "Student.h"
 
 // TODO：定义静态数据成员和成员函数
@@ -70,7 +70,7 @@ int current = Student::GetCount();
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Student.h"
 
 #include <cassert>
@@ -108,11 +108,11 @@ int main() {
 
 `third` 离开内部作用域后会自动析构，数量从 `3` 恢复为 `2`。最终预期输出：
 
-```text
+``` text
 当前学生数 2
 ```
 
-```bash
+``` bash
 g++ -std=c++11 Student.cpp main.cpp -o student_count
 ```
 

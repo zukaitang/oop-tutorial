@@ -1,4 +1,4 @@
-# 练习：使用 const 保护图书成员
+# 练习10：使用 const 保护图书成员
 
 ---
 
@@ -12,7 +12,7 @@
 
 在成员函数参数列表后添加 `const`，表示该函数不会修改对象的数据成员：
 
-```cpp
+``` cpp
 double Book::GetPrice() const {
     return price;
 }
@@ -22,7 +22,7 @@ double Book::GetPrice() const {
 
 ### const 对象与 const 引用
 
-```cpp
+``` cpp
 const Book book("C++ 程序设计", 68.50);
 std::cout << book.GetPrice();
 ```
@@ -41,15 +41,15 @@ std::cout << book.GetPrice();
    void Print() const;
    ```
 
-3. 在 `Book.h` 中声明普通函数 `void PrintBook(const Book& book);`。
-4. 在 `Book.cpp` 中完成所有函数定义。`Print` 按“书名 标题\n价格 数值”的格式输出，价格保留两位小数；`PrintBook` 调用 `book.Print()`。
-5. 在 `test` 中创建 `const Book` 对象，并使用 `assert` 验证 getter 和输出结果。
+1. 在 `Book.h` 中声明普通函数 `void PrintBook(const Book& book);`。
+2. 在 `Book.cpp` 中完成所有函数定义。`Print` 按“书名 标题\n价格 数值”的格式输出，价格保留两位小数；`PrintBook` 调用 `book.Print()`。
+3. 在 `test` 中创建 `const Book` 对象，并使用 `assert` 验证 getter 和输出结果。
 
 ## 待完成代码
 
 ### Book.h
 
-```cpp
+``` cpp
 #ifndef BOOK_H
 #define BOOK_H
 
@@ -62,7 +62,7 @@ std::cout << book.GetPrice();
 
 ### Book.cpp
 
-```cpp
+``` cpp
 #include "Book.h"
 
 // TODO：定义所有函数
@@ -70,7 +70,7 @@ std::cout << book.GetPrice();
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Book.h"
 
 #include <cassert>
@@ -100,12 +100,12 @@ int main() {
 
 测试使用常量 `Book` 对象，因此若读取成员函数缺少 `const`，程序将无法编译。预期输出为：
 
-```text
+``` text
 书名 C++ 程序设计
 价格 68.50
 ```
 
-```bash
+``` bash
 g++ -std=c++11 Book.cpp main.cpp -o const_book
 ```
 

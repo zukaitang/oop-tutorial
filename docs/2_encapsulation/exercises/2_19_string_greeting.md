@@ -1,4 +1,4 @@
-# 练习：使用 string 拼接问候语
+# 练习19：使用 string 拼接问候语
 
 ---
 
@@ -12,7 +12,7 @@
 
 `std::string` 是 C++ 标准库提供的字符串类型，会自动管理字符存储空间，使用时无需手动处理结尾空字符或动态内存释放。
 
-```cpp
+``` cpp
 std::string name = "李红霞";
 std::string message = "你好，" + name;
 ```
@@ -21,7 +21,7 @@ std::string message = "你好，" + name;
 
 只读取字符串时，应使用 `const std::string&` 参数，避免不必要的复制并防止函数修改实参。
 
-```cpp
+``` cpp
 std::string makeGreeting(const std::string& name);
 ```
 
@@ -29,7 +29,7 @@ std::string makeGreeting(const std::string& name);
 
 `+` 可连接 `std::string` 对象和字符串字面量。若左侧是字面量，应先构造一个 `std::string` 对象。
 
-```cpp
+``` cpp
 return std::string("你好，") + name + "！";
 ```
 
@@ -42,12 +42,12 @@ return std::string("你好，") + name + "！";
    std::string makeGreeting(const std::string& name);
    ```
 
-3. 返回格式必须为 `你好，姓名！欢迎学习 C++。`，其中标点均为全角字符。
-4. 在 `test` 中使用 `assert` 验证两组字符串返回值和输出结果。
+1. 返回格式必须为 `你好，姓名！欢迎学习 C++。`，其中标点均为全角字符。
+2. 在 `test` 中使用 `assert` 验证两组字符串返回值和输出结果。
 
 ## 待完成代码
 
-```cpp
+``` cpp
 #include <cassert>
 #include <iostream>
 #include <sstream>
@@ -80,7 +80,7 @@ int main() {
 
 预期输出：
 
-```text
+``` text
 你好，李红霞！欢迎学习 C++。
 ```
 

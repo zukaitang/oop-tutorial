@@ -1,4 +1,4 @@
-# 编程：使用 auto 与 decltype 实现异类型数值求和
+# 练习2：使用 auto 与 decltype 实现异类型数值求和
 
 ---
 
@@ -16,7 +16,7 @@
 
 `auto` 可以根据初始化表达式自动推导变量类型，变量必须在声明时初始化。
 
-```cpp
+``` cpp
 auto result = 3 + 2.5;  // result 被推导为 double
 ```
 
@@ -26,7 +26,7 @@ auto result = 3 + 2.5;  // result 被推导为 double
 
 `decltype(表达式)` 用于推导表达式的类型，但不会执行该表达式。
 
-```cpp
+``` cpp
 int a = 3;
 double b = 2.5;
 
@@ -35,7 +35,7 @@ decltype(a + b) result = a + b;  // result 的类型为 double
 
 由于 `int` 和 `double` 相加的结果为 `double`，因此：
 
-```cpp
+``` cpp
 decltype(a + b)
 ```
 
@@ -45,13 +45,13 @@ decltype(a + b)
 
 当返回类型依赖函数参数时，可使用 C++11 的尾置返回类型语法：
 
-```cpp
+``` cpp
 auto 函数名(参数列表) -> 返回类型
 ```
 
 例如：
 
-```cpp
+``` cpp
 auto add(int a, double b) -> decltype(a + b)
 ```
 
@@ -64,18 +64,18 @@ auto add(int a, double b) -> decltype(a + b)
 3. 完成函数 `add` 的函数体。
 4. 函数必须采用以下声明形式：
 
-```cpp
+``` cpp
 auto add(int a, double b) -> decltype(a + b);
 ```
 
-5. 函数应返回 `a` 与 `b` 的和。
-6. 在 `main` 函数中使用 `auto` 接收函数返回值。
-7. 使用 `static_assert` 和 `std::is_same` 验证结果变量的类型为 `double`。
-8. 使用 `assert` 验证计算结果正确。
+1. 函数应返回 `a` 与 `b` 的和。
+2. 在 `main` 函数中使用 `auto` 接收函数返回值。
+3. 使用 `static_assert` 和 `std::is_same` 验证结果变量的类型为 `double`。
+4. 使用 `assert` 验证计算结果正确。
 
 ## 待完成代码
 
-```cpp
+``` cpp
 #include <cassert>
 #include <iostream>
 #include <type_traits>
@@ -110,14 +110,14 @@ int main() {
 
 程序至少应完成以下两组测试：
 
-| 测试项 | 函数调用 | 预期结果 |
-|---|---|---:|
-| 正数相加 | `add(3, 2.5)` | `5.5` |
-| 含负数相加 | `add(-10, 0.75)` | `-9.25` |
+| 测试项     | 函数调用         | 预期结果 |
+| ---------- | ---------------- | -------: |
+| 正数相加   | `add(3, 2.5)`    |    `5.5` |
+| 含负数相加 | `add(-10, 0.75)` |  `-9.25` |
 
 同时，以下编译期检查必须通过：
 
-```cpp
+``` cpp
 static_assert(
     std::is_same<decltype(result1), double>::value
 );
@@ -129,6 +129,6 @@ static_assert(
 - `auto result1` 正确推导出变量类型；
 - `int + double` 的计算结果类型为 `double`。
 
-
 ---
+
 开始你的任务吧，祝你成功！

@@ -1,4 +1,4 @@
-# 练习：使用组合类表示学生生日
+# 练习5：使用组合类表示学生生日
 
 ---
 
@@ -14,7 +14,7 @@
 
 当一个类拥有另一个类的对象作为数据成员时，称为类的组合。例如，学生拥有一个生日日期：
 
-```cpp
+``` cpp
 class Student {
 private:
     std::string name;
@@ -28,7 +28,7 @@ private:
 
 如果成员对象没有无参构造函数，外层类必须在构造函数初始化列表中调用其构造函数：
 
-```cpp
+``` cpp
 Student::Student(const std::string& name, int year, int month, int day)
     : name(name), birthday(year, month, day) {
 }
@@ -50,28 +50,28 @@ Student::Student(const std::string& name, int year, int month, int day)
    void Print() const;
    ```
 
-3. 在同一头文件中声明 `Student` 类，私有成员包括姓名和一个 `Date` 类型的生日成员：
+1. 在同一头文件中声明 `Student` 类，私有成员包括姓名和一个 `Date` 类型的生日成员：
 
    ```cpp
    std::string name;
    Date birthday;
    ```
 
-4. `Student` 应提供构造函数和 `Print` 函数：
+1. `Student` 应提供构造函数和 `Print` 函数：
 
    ```cpp
    Student(const std::string& name, int year, int month, int day);
    void Print() const;
    ```
 
-5. 在 `Student.cpp` 中使用初始化列表构造 `Student` 的 `birthday` 成员。`Date::Print` 输出 `年-月-日`；`Student::Print` 输出姓名和生日，格式见测试说明。
-6. 在 `main.cpp` 中创建两个 `Student` 对象，捕获 `Print` 输出并用 `assert` 验证。
+1. 在 `Student.cpp` 中使用初始化列表构造 `Student` 的 `birthday` 成员。`Date::Print` 输出 `年-月-日`；`Student::Print` 输出姓名和生日，格式见测试说明。
+2. 在 `main.cpp` 中创建两个 `Student` 对象，捕获 `Print` 输出并用 `assert` 验证。
 
 ## 待完成代码
 
 ### Student.h
 
-```cpp
+``` cpp
 #ifndef STUDENT_H
 #define STUDENT_H
 
@@ -84,7 +84,7 @@ Student::Student(const std::string& name, int year, int month, int day)
 
 ### Student.cpp
 
-```cpp
+``` cpp
 #include "Student.h"
 
 // TODO：定义 Date 和 Student 的成员函数
@@ -92,7 +92,7 @@ Student::Student(const std::string& name, int year, int month, int day)
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Student.h"
 
 #include <cassert>
@@ -125,14 +125,14 @@ int main() {
 
 `Student::Print` 应调用内部 `Date` 对象的输出功能。两名学生的预期输出为：
 
-```text
+``` text
 姓名 李红霞 生日 2004-5-12
 姓名 张如雪 生日 2003-11-8
 ```
 
 可使用以下命令编译三个文件：
 
-```bash
+``` bash
 g++ -std=c++11 Student.cpp main.cpp -o student_birthday
 ```
 

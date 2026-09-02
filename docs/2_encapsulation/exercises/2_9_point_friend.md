@@ -1,4 +1,4 @@
-# 练习：使用友元函数计算两点距离
+# 练习9：使用友元函数计算两点距离
 
 ---
 
@@ -12,7 +12,7 @@
 
 友元函数不是类的成员函数，但可访问类的私有成员。需要在类中使用 `friend` 声明：
 
-```cpp
+``` cpp
 class Point {
 private:
     double x;
@@ -29,7 +29,7 @@ public:
 
 两点 `(x1, y1)` 和 `(x2, y2)` 的距离为：
 
-```text
+``` text
 sqrt((x1 - x2)² + (y1 - y2)²)
 ```
 
@@ -47,7 +47,7 @@ sqrt((x1 - x2)² + (y1 - y2)²)
 
 ### Point.h
 
-```cpp
+``` cpp
 #ifndef POINT_H
 #define POINT_H
 
@@ -58,7 +58,7 @@ sqrt((x1 - x2)² + (y1 - y2)²)
 
 ### Point.cpp
 
-```cpp
+``` cpp
 #include "Point.h"
 
 // TODO：定义 Point 的构造函数和 Distance 函数
@@ -66,7 +66,7 @@ sqrt((x1 - x2)² + (y1 - y2)²)
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Point.h"
 
 #include <cassert>
@@ -96,7 +96,7 @@ int main() {
 
 `(0, 0)` 与 `(3, 4)` 构成直角三角形，其距离为 `5`。可使用以下命令编译：
 
-```bash
+``` bash
 g++ -std=c++11 Point.cpp main.cpp -o point_friend
 ```
 

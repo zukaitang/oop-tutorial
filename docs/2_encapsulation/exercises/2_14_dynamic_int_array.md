@@ -1,4 +1,4 @@
-# 练习：使用动态内存管理整数数组
+# 练习14：使用动态内存管理整数数组
 
 ---
 
@@ -12,13 +12,13 @@
 
 运行时才能确定数组长度时，可使用 `new[]` 在动态存储区申请数组：
 
-```cpp
+``` cpp
 int* data = new int[size];
 ```
 
 用 `new[]` 申请的数组必须使用 `delete[]` 释放：
 
-```cpp
+``` cpp
 delete[] data;
 data = nullptr;
 ```
@@ -29,7 +29,7 @@ data = nullptr;
 
 将动态数组指针作为类的私有成员时，构造函数负责申请资源，析构函数负责释放资源：
 
-```cpp
+``` cpp
 class IntArray {
 private:
     int* data;
@@ -58,15 +58,15 @@ private:
    void Print() const;
    ```
 
-4. 构造函数使用 `new int[size]` 申请数组，并将每个元素初始化为 `0`；析构函数使用 `delete[]` 释放数组并将指针置为 `nullptr`。
-5. `Set`、`Get` 在访问前使用断言检查下标；`Sum` 返回全部元素的和；`Print` 按空格分隔输出全部元素，末尾输出换行。
-6. 在 `test` 中设置 4 个元素，使用 `assert` 验证读取值和总和，并捕获 `Print` 输出进行断言。
+1. 构造函数使用 `new int[size]` 申请数组，并将每个元素初始化为 `0`；析构函数使用 `delete[]` 释放数组并将指针置为 `nullptr`。
+2. `Set`、`Get` 在访问前使用断言检查下标；`Sum` 返回全部元素的和；`Print` 按空格分隔输出全部元素，末尾输出换行。
+3. 在 `test` 中设置 4 个元素，使用 `assert` 验证读取值和总和，并捕获 `Print` 输出进行断言。
 
 ## 待完成代码
 
 ### IntArray.h
 
-```cpp
+``` cpp
 #ifndef INT_ARRAY_H
 #define INT_ARRAY_H
 
@@ -79,7 +79,7 @@ private:
 
 ### IntArray.cpp
 
-```cpp
+``` cpp
 #include "IntArray.h"
 
 // TODO：定义 IntArray 的成员函数
@@ -87,7 +87,7 @@ private:
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "IntArray.h"
 
 #include <cassert>
@@ -123,11 +123,11 @@ int main() {
 
 数组元素依次为 `10`、`-3`、`8`、`5`，总和为 `20`。预期输出：
 
-```text
+``` text
 10 -3 8 5
 ```
 
-```bash
+``` bash
 g++ -std=c++11 IntArray.cpp main.cpp -o dynamic_int_array
 ```
 

@@ -1,4 +1,4 @@
-# 练习：使用静态成员生成编号
+# 练习8：使用静态成员生成编号
 
 ---
 
@@ -12,7 +12,7 @@
 
 若每个对象各自保存编号起点，将无法保证编号不重复。将下一个可分配编号设置为静态成员后，所有对象共享同一序列：
 
-```cpp
+``` cpp
 class IdGenerator {
 private:
     static int nextId;
@@ -24,7 +24,7 @@ private:
 
 静态成员函数可用于管理类的共享状态，例如重置编号起点：
 
-```cpp
+``` cpp
 static void Reset(int startId);
 ```
 
@@ -41,15 +41,15 @@ static void Reset(int startId);
    static void Reset(int startId);
    ```
 
-3. `nextId` 的初始值为 `1001`。构造函数将当前 `nextId` 赋给 `id`，然后使 `nextId` 加一。
-4. `Reset` 将 `nextId` 设置为给定起始值。
-5. 在 `test` 中创建对象并使用 `assert` 验证编号序列和重置后的结果。
+1. `nextId` 的初始值为 `1001`。构造函数将当前 `nextId` 赋给 `id`，然后使 `nextId` 加一。
+2. `Reset` 将 `nextId` 设置为给定起始值。
+3. 在 `test` 中创建对象并使用 `assert` 验证编号序列和重置后的结果。
 
 ## 待完成代码
 
 ### IdGenerator.h
 
-```cpp
+``` cpp
 #ifndef ID_GENERATOR_H
 #define ID_GENERATOR_H
 
@@ -60,7 +60,7 @@ static void Reset(int startId);
 
 ### IdGenerator.cpp
 
-```cpp
+``` cpp
 #include "IdGenerator.h"
 
 // TODO：定义静态数据成员和成员函数
@@ -68,7 +68,7 @@ static void Reset(int startId);
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "IdGenerator.h"
 
 #include <cassert>
@@ -103,7 +103,7 @@ int main() {
 
 前两个对象的编号应为 `1001`、`1002`；重置起点为 `2001` 后，新对象编号应为 `2001`。
 
-```bash
+``` bash
 g++ -std=c++11 IdGenerator.cpp main.cpp -o id_generator
 ```
 

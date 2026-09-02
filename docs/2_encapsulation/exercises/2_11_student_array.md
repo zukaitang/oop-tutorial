@@ -1,4 +1,4 @@
-# 练习：使用对象数组管理学生信息
+# 练习11：使用对象数组管理学生信息
 
 ---
 
@@ -14,7 +14,7 @@
 
 定义对象时传入实参，会自动调用与参数匹配的构造函数：
 
-```cpp
+``` cpp
 Student student(1, "李红霞", 96.0f);
 ```
 
@@ -24,7 +24,7 @@ Student student(1, "李红霞", 96.0f);
 
 对象数组会在创建时为每个元素调用构造函数。若类没有无参构造函数，则需要为每个数组元素提供构造参数：
 
-```cpp
+``` cpp
 Student students[2] = {
     Student(0, "", 0.0f),
     Student(0, "", 0.0f)
@@ -37,7 +37,7 @@ Student students[2] = {
 
 数组下标运算符 `[]` 先选中对象，再用 `.` 访问该对象的公有成员：
 
-```cpp
+``` cpp
 students[index].SID;
 students[index].Name;
 students[index].Score;
@@ -47,7 +47,7 @@ students[index].Score;
 
 计算平均值时，应使用 `float` 或 `double` 保存结果，避免整数除法丢失小数部分。使用 `<iomanip>` 中的 `std::fixed` 和 `std::setprecision(4)` 可使平均成绩固定输出 4 位小数。
 
-```cpp
+``` cpp
 std::cout << std::fixed << std::setprecision(4) << average;
 ```
 
@@ -62,13 +62,13 @@ std::cout << std::fixed << std::setprecision(4) << average;
    float Score;
    ```
 
-3. 在类中声明公有带参构造函数：
+1. 在类中声明公有带参构造函数：
 
    ```cpp
    Student(int sid, const std::string& name, float sco);
    ```
 
-4. 在 `Student.h` 中声明以下普通函数：
+1. 在 `Student.h` 中声明以下普通函数：
 
    ```cpp
    void Add(int sid, const std::string& name, float sco);
@@ -76,21 +76,21 @@ std::cout << std::fixed << std::setprecision(4) << average;
    void Average();
    ```
 
-5. 在 `Student.cpp` 中定义一个最多容纳 5 个元素的全局 `Student` 对象数组，以及记录当前学生数的计数变量。
-6. 完成三个普通函数：
+1. 在 `Student.cpp` 中定义一个最多容纳 5 个元素的全局 `Student` 对象数组，以及记录当前学生数的计数变量。
+2. 完成三个普通函数：
 
-   - `Add`：在学生表末尾添加一条记录；
-   - `PrintAll`：按“学号 姓名 成绩”的格式逐行输出已添加记录；
-   - `Average`：计算已添加学生的平均成绩，并按“平均成绩 计算结果”的格式输出，保留 4 位小数。
+3. `Add`：在学生表末尾添加一条记录；
+4. `PrintAll`：按“学号 姓名 成绩”的格式逐行输出已添加记录；
+5. `Average`：计算已添加学生的平均成绩，并按“平均成绩 计算结果”的格式输出，保留 4 位小数。
 
-7. 本题测试数据不超过 5 条记录。`test` 函数使用 `std::ostringstream` 捕获 `PrintAll` 与 `Average` 的输出，并用 `assert` 验证结果。
-8. 在 `main` 函数中调用 `test`。
+6. 本题测试数据不超过 5 条记录。`test` 函数使用 `std::ostringstream` 捕获 `PrintAll` 与 `Average` 的输出，并用 `assert` 验证结果。
+7. 在 `main` 函数中调用 `test`。
 
 ## 待完成代码
 
 ### Student.h
 
-```cpp
+``` cpp
 #ifndef STUDENT_H
 #define STUDENT_H
 
@@ -103,7 +103,7 @@ std::cout << std::fixed << std::setprecision(4) << average;
 
 ### Student.cpp
 
-```cpp
+``` cpp
 #include "Student.h"
 
 // TODO：定义全局对象数组、构造函数和三个普通函数
@@ -111,7 +111,7 @@ std::cout << std::fixed << std::setprecision(4) << average;
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Student.h"
 
 #include <cassert>
@@ -147,7 +147,7 @@ int main() {
 
 按顺序添加以下三条记录：`(0, 李红霞, 96)`、`(1, 张如雪, 85)`、`(2, 刘俊民, 76)`。预期输出为：
 
-```text
+``` text
 0 李红霞 96
 1 张如雪 85
 2 刘俊民 76
@@ -156,7 +156,7 @@ int main() {
 
 平均值的计算为 `(96 + 85 + 76) / 3 = 85.6667`（保留 4 位小数）。可使用以下命令编译三个文件：
 
-```bash
+``` bash
 g++ -std=c++11 Student.cpp main.cpp -o student_array
 ```
 

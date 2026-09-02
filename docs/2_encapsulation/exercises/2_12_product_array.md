@@ -1,4 +1,4 @@
-# 练习：使用对象数组管理商品
+# 练习12：使用对象数组管理商品
 
 ---
 
@@ -14,7 +14,7 @@
 
 对象数组的每个元素都是一个独立对象。若类提供带参构造函数，可以在列表初始化时为每个元素提供构造参数：
 
-```cpp
+``` cpp
 Product products[3] = {
     Product("笔记本", 12.50),
     Product("水杯", 35.00),
@@ -28,7 +28,7 @@ Product products[3] = {
 
 使用下标访问对象数组中的元素，再通过 `.` 调用对象的公有成员函数：
 
-```cpp
+``` cpp
 for (std::size_t i = 0; i < count; ++i) {
     total += products[i].GetPrice();
 }
@@ -38,7 +38,7 @@ for (std::size_t i = 0; i < count; ++i) {
 
 数组作为函数参数时通常会退化为指针，因此需要额外传入元素个数。若函数不修改数组元素，应使用 `const` 修饰参数：
 
-```cpp
+``` cpp
 double CalculateTotal(const Product products[], std::size_t count);
 ```
 
@@ -52,7 +52,7 @@ double CalculateTotal(const Product products[], std::size_t count);
    double price;
    ```
 
-3. 声明并实现以下公有成员函数：
+1. 声明并实现以下公有成员函数：
 
    ```cpp
    Product(const std::string& name, double price);
@@ -60,22 +60,22 @@ double CalculateTotal(const Product products[], std::size_t count);
    double GetPrice() const;
    ```
 
-4. 在 `Product.h` 中声明普通函数：
+1. 在 `Product.h` 中声明普通函数：
 
    ```cpp
    void PrintProducts(const Product products[], std::size_t count);
    double CalculateTotal(const Product products[], std::size_t count);
    ```
 
-5. `PrintProducts` 按“商品名 单价”的格式逐行输出对象数组中的全部商品，单价固定保留两位小数。
-6. `CalculateTotal` 返回数组中所有商品单价之和。
-7. 在 `main.cpp` 中创建包含 3 个 `Product` 对象的数组，使用 `assert` 验证总价，并捕获 `PrintProducts` 输出后断言其格式。
+1. `PrintProducts` 按“商品名 单价”的格式逐行输出对象数组中的全部商品，单价固定保留两位小数。
+2. `CalculateTotal` 返回数组中所有商品单价之和。
+3. 在 `main.cpp` 中创建包含 3 个 `Product` 对象的数组，使用 `assert` 验证总价，并捕获 `PrintProducts` 输出后断言其格式。
 
 ## 待完成代码
 
 ### Product.h
 
-```cpp
+``` cpp
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
@@ -89,7 +89,7 @@ double CalculateTotal(const Product products[], std::size_t count);
 
 ### Product.cpp
 
-```cpp
+``` cpp
 #include "Product.h"
 
 // TODO：定义 Product 的成员函数和两个普通函数
@@ -97,7 +97,7 @@ double CalculateTotal(const Product products[], std::size_t count);
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Product.h"
 
 #include <cassert>
@@ -136,7 +136,7 @@ int main() {
 
 对象数组中共有三件商品，预期总价为 `12.50 + 35.00 + 89.50 = 137.00`。输出应为：
 
-```text
+``` text
 笔记本 12.50
 水杯 35.00
 书包 89.50
@@ -144,7 +144,7 @@ int main() {
 
 可使用以下命令编译三个文件：
 
-```bash
+``` bash
 g++ -std=c++11 Product.cpp main.cpp -o product_array
 ```
 

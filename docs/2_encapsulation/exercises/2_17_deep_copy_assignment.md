@@ -1,4 +1,4 @@
-# 练习：为动态数组类实现深拷贝赋值
+# 练习17：为动态数组类实现深拷贝赋值
 
 ---
 
@@ -12,14 +12,14 @@
 
 对象已经存在时，使用赋值语句会调用拷贝赋值运算符：
 
-```cpp
+``` cpp
 IntArray target(1);
 target = source;
 ```
 
 其函数原型通常为：
 
-```cpp
+``` cpp
 IntArray& operator=(const IntArray& other);
 ```
 
@@ -34,7 +34,7 @@ IntArray& operator=(const IntArray& other);
 3. 释放旧内存；
 4. 更新成员并返回 `*this`。
 
-```cpp
+``` cpp
 if (this != &other) {
     // 复制 other 的数据，并替换当前对象的数据
 }
@@ -60,14 +60,14 @@ return *this;
    int Get(std::size_t index) const;
    ```
 
-4. 拷贝构造函数和赋值运算符都必须深拷贝数组元素。赋值运算符需要处理 `array = array` 的自赋值情况。
-5. 在 `test` 中验证拷贝构造、普通赋值和自赋值；修改副本后，源对象的元素不能改变。
+1. 拷贝构造函数和赋值运算符都必须深拷贝数组元素。赋值运算符需要处理 `array = array` 的自赋值情况。
+2. 在 `test` 中验证拷贝构造、普通赋值和自赋值；修改副本后，源对象的元素不能改变。
 
 ## 待完成代码
 
 ### IntArray.h
 
-```cpp
+``` cpp
 #ifndef INT_ARRAY_H
 #define INT_ARRAY_H
 
@@ -80,7 +80,7 @@ return *this;
 
 ### IntArray.cpp
 
-```cpp
+``` cpp
 #include "IntArray.h"
 
 // TODO：定义 IntArray 的全部成员函数
@@ -88,7 +88,7 @@ return *this;
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "IntArray.h"
 
 #include <cassert>
@@ -128,7 +128,7 @@ int main() {
 
 测试覆盖以下情形：拷贝构造后修改副本、赋值后修改目标对象、对象自赋值。每种情况下，动态数组都应安全管理，且不应让不同对象共享同一块数组内存。
 
-```bash
+``` bash
 g++ -std=c++11 IntArray.cpp main.cpp -o deep_copy_assignment
 ```
 

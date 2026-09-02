@@ -1,4 +1,4 @@
-# 练习：创建对象并计算长方形面积
+# 练习2：创建对象并计算长方形面积
 
 ---
 
@@ -14,7 +14,7 @@
 
 类是对一组具有共同特征的对象的抽象描述；类的实例称为对象。创建对象的语法与声明普通变量类似：
 
-```cpp
+``` cpp
 Rectangle rect;  // 创建一个 Rectangle 对象
 ```
 
@@ -24,14 +24,14 @@ Rectangle rect;  // 创建一个 Rectangle 对象
 
 使用成员访问运算符 `.` 可以访问对象的公有成员。对于成员函数，使用对象名、`.` 和函数名调用：
 
-```cpp
+``` cpp
 rect.Set(10, 15);
 int area = rect.GetArea();
 ```
 
 私有数据成员不能在类外直接访问，因此下面的写法是错误的：
 
-```cpp
+``` cpp
 // rect.height = 10;  // 错误：height 是私有成员
 ```
 
@@ -41,7 +41,7 @@ int area = rect.GetArea();
 
 对象可以作为普通函数的返回值或参数：
 
-```cpp
+``` cpp
 Rectangle GetRect(int h, int w);  // 返回 Rectangle 对象
 int GetRectArea(Rectangle rect);  // 接收 Rectangle 对象并返回面积
 ```
@@ -63,24 +63,24 @@ int GetRectArea(Rectangle rect);  // 接收 Rectangle 对象并返回面积
        int GetArea();
    ```
 
-3. 在 `Rectangle.h` 中同时声明以下普通函数：
+1. 在 `Rectangle.h` 中同时声明以下普通函数：
 
    ```cpp
    Rectangle GetRect(int h, int w);
    int GetRectArea(Rectangle rect);
    ```
 
-4. 在文件 `Rectangle.cpp` 中包含 `Rectangle.h`，并完成两个成员函数和两个普通函数的定义。
-5. `Set` 将参数 `h`、`w` 分别赋给 `height`、`width`；`GetArea` 返回 `height * width`。
-6. `GetRect` 创建一个 `Rectangle` 对象，调用 `Set(h, w)` 设置长和宽后返回该对象。
-7. `GetRectArea` 调用参数对象的 `GetArea()`，并返回得到的面积。
-8. 在 `main.cpp` 的 `test` 函数中使用 `assert` 验证两组面积计算结果，并断言输出字符串与预期完全一致；在 `main` 函数中调用 `test`。
+1. 在文件 `Rectangle.cpp` 中包含 `Rectangle.h`，并完成两个成员函数和两个普通函数的定义。
+2. `Set` 将参数 `h`、`w` 分别赋给 `height`、`width`；`GetArea` 返回 `height * width`。
+3. `GetRect` 创建一个 `Rectangle` 对象，调用 `Set(h, w)` 设置长和宽后返回该对象。
+4. `GetRectArea` 调用参数对象的 `GetArea()`，并返回得到的面积。
+5. 在 `main.cpp` 的 `test` 函数中使用 `assert` 验证两组面积计算结果，并断言输出字符串与预期完全一致；在 `main` 函数中调用 `test`。
 
 ## 待完成代码
 
 ### Rectangle.h
 
-```cpp
+``` cpp
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
@@ -91,7 +91,7 @@ int GetRectArea(Rectangle rect);  // 接收 Rectangle 对象并返回面积
 
 ### Rectangle.cpp
 
-```cpp
+``` cpp
 #include "Rectangle.h"
 
 // TODO：定义 Rectangle 的成员函数和两个普通函数
@@ -99,7 +99,7 @@ int GetRectArea(Rectangle rect);  // 接收 Rectangle 对象并返回面积
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Rectangle.h"
 
 #include <cassert>
@@ -137,14 +137,14 @@ int main() {
 
 测试包含两组长方形尺寸。`assert` 既验证 `GetRectArea` 的返回值，也验证输出格式：
 
-| 高度 | 宽度 | 预期面积 | 预期输出 |
-|---:|---:|---:|---|
-| `10` | `15` | `150` | `长方形的面积为：150` |
-| `100` | `100` | `10000` | `长方形的面积为：10000` |
+|  高度 |  宽度 | 预期面积 | 预期输出                |
+| ----: | ----: | -------: | ----------------------- |
+|  `10` |  `15` |    `150` | `长方形的面积为：150`   |
+| `100` | `100` |  `10000` | `长方形的面积为：10000` |
 
 可使用以下命令编译三个文件：
 
-```bash
+``` bash
 g++ -std=c++11 Rectangle.cpp main.cpp -o rectangle
 ```
 

@@ -1,4 +1,4 @@
-# 练习：使用对象指针管理账户
+# 练习13：使用对象指针管理账户
 
 ---
 
@@ -14,13 +14,13 @@
 
 对象指针用于保存对象的地址。使用 `new` 可以在动态存储区创建对象，并获得指向该对象的指针：
 
-```cpp
+``` cpp
 Account* account = new Account("A001", 100.00);
 ```
 
 通过对象指针访问成员时，使用 `->` 运算符：
 
-```cpp
+``` cpp
 account->Deposit(50.00);
 double balance = account->GetBalance();
 ```
@@ -31,7 +31,7 @@ double balance = account->GetBalance();
 
 使用 `new` 创建的单个对象应使用 `delete` 释放：
 
-```cpp
+``` cpp
 delete account;
 account = nullptr;
 ```
@@ -52,7 +52,7 @@ account = nullptr;
    double balance;
    ```
 
-3. 声明并实现以下公有成员函数：
+1. 声明并实现以下公有成员函数：
 
    ```cpp
    Account(const std::string& id, double balance);
@@ -63,21 +63,21 @@ account = nullptr;
    void Print() const;
    ```
 
-4. `Deposit` 仅在 `amount > 0` 时增加余额；`Withdraw` 在取款成功时返回 `true` 并减少余额，否则返回 `false` 且余额不变。
-5. `Print` 按以下格式输出账户信息，余额固定保留两位小数：
+1. `Deposit` 仅在 `amount > 0` 时增加余额；`Withdraw` 在取款成功时返回 `true` 并减少余额，否则返回 `false` 且余额不变。
+2. `Print` 按以下格式输出账户信息，余额固定保留两位小数：
 
    ```text
    账号 A001
    余额 130.00
    ```
 
-6. 在 `main.cpp` 中使用 `new` 创建 `Account` 对象，通过 `->` 调用成员函数；使用 `assert` 验证存取款结果和输出内容；最后使用 `delete` 释放对象并将指针设为 `nullptr`。
+1. 在 `main.cpp` 中使用 `new` 创建 `Account` 对象，通过 `->` 调用成员函数；使用 `assert` 验证存取款结果和输出内容；最后使用 `delete` 释放对象并将指针设为 `nullptr`。
 
 ## 待完成代码
 
 ### Account.h
 
-```cpp
+``` cpp
 #ifndef ACCOUNT_H
 #define ACCOUNT_H
 
@@ -90,7 +90,7 @@ account = nullptr;
 
 ### Account.cpp
 
-```cpp
+``` cpp
 #include "Account.h"
 
 // TODO：定义 Account 的成员函数
@@ -98,7 +98,7 @@ account = nullptr;
 
 ### main.cpp
 
-```cpp
+``` cpp
 #include "Account.h"
 
 #include <cassert>
@@ -141,7 +141,7 @@ int main() {
 
 可使用以下命令编译三个文件：
 
-```bash
+``` bash
 g++ -std=c++11 Account.cpp main.cpp -o account_pointer
 ```
 

@@ -1,4 +1,4 @@
-# 编程：使用 `nullptr` 实现安全的数组求和
+# 练习3：使用 `nullptr` 实现安全的数组求和
 
 ---
 
@@ -16,13 +16,13 @@
 
 C++11 使用 `nullptr` 表示空指针。与传统的 `NULL` 或整数 `0` 相比，`nullptr` 具有明确的空指针类型，能够避免类型歧义。
 
-```cpp
+``` cpp
 int* p = nullptr;
 ```
 
 使用指针前，应先判断其是否为空：
 
-```cpp
+``` cpp
 if (p == nullptr) {
     // 指针为空，不能通过 *p 访问数据
 }
@@ -32,13 +32,13 @@ if (p == nullptr) {
 
 函数参数使用 `const int*`：
 
-```cpp
+``` cpp
 const int* data
 ```
 
 表示函数可以读取数组元素，但不能修改原数组内容。例如，以下代码不合法：
 
-```cpp
+``` cpp
 data[0] = 100;  // 错误：不能通过 const int* 修改数据
 ```
 
@@ -48,7 +48,7 @@ data[0] = 100;  // 错误：不能通过 const int* 修改数据
 
 数组首地址可通过指针传递给函数，使用下标访问数组元素：
 
-```cpp
+``` cpp
 data[i]
 ```
 
@@ -63,19 +63,19 @@ data[i]
 2. 完成函数 `sumArray`。
 3. 函数参数必须使用以下形式：
 
-```cpp
+``` cpp
 int sumArray(const int* data, std::size_t size);
 ```
 
-4. 当 `data == nullptr` 时，返回 `0`。
-5. 当 `size == 0` 时，返回 `0`。
-6. 当数组有效时，遍历数组并返回所有元素之和。
-7. 编写 `test` 函数，对 `sumArray` 进行断言测试。
-8. 在 `main` 函数中调用 `test` 函数，并保留测试通过信息与返回语句。
+1. 当 `data == nullptr` 时，返回 `0`。
+2. 当 `size == 0` 时，返回 `0`。
+3. 当数组有效时，遍历数组并返回所有元素之和。
+4. 编写 `test` 函数，对 `sumArray` 进行断言测试。
+5. 在 `main` 函数中调用 `test` 函数，并保留测试通过信息与返回语句。
 
 ## 待完成代码
 
-```cpp
+``` cpp
 #include <cassert>
 #include <cstddef>
 #include <iostream>
@@ -107,15 +107,15 @@ int main() {
 
 `test` 函数应至少覆盖以下四类场景：
 
-| 测试项 | 调用方式 | 预期结果 |
-|---|---|---:|
-| 正常数组求和 | `sumArray(scores, 4)` | `343` |
-| 有效数组但长度为 0 | `sumArray(scores, 0)` | `0` |
-| 空指针且长度为 0 | `sumArray(nullptr, 0)` | `0` |
-| 空指针但长度非 0 | `sumArray(nullptr, 10)` | `0` |
+| 测试项             | 调用方式                | 预期结果 |
+| ------------------ | ----------------------- | -------: |
+| 正常数组求和       | `sumArray(scores, 4)`   |    `343` |
+| 有效数组但长度为 0 | `sumArray(scores, 0)`   |      `0` |
+| 空指针且长度为 0   | `sumArray(nullptr, 0)`  |      `0` |
+| 空指针但长度非 0   | `sumArray(nullptr, 10)` |      `0` |
 
 其中，最后一项用于验证函数是否真正进行了空指针检查。若未判断 `data == nullptr` 而直接访问 `data[i]`，程序可能发生运行时错误。
 
-
 ---
+
 开始你的任务吧，祝你成功！

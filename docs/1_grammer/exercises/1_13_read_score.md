@@ -1,4 +1,4 @@
-# 编程：检查整数成绩输入是否合法
+# 练习13：检查整数成绩输入是否合法
 
 ---
 
@@ -14,7 +14,7 @@
 
 当输入内容与目标变量类型不匹配时，输入流会进入失败状态：
 
-```cpp
+``` cpp
 int score;
 std::cin >> score;
 
@@ -27,7 +27,7 @@ if (std::cin.fail()) {
 
 输入失败后，需要先清除错误状态，再忽略当前行中的错误内容：
 
-```cpp
+``` cpp
 in.clear();
 in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 ```
@@ -44,19 +44,19 @@ in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 2. 完成函数 `readScore` 的函数体。
 3. 函数必须采用以下声明形式：
 
-```cpp
+``` cpp
 bool readScore(std::istream& in, int& score);
 ```
 
-4. 使用 `in >> score` 读取整数。
-5. 输入成功时返回 `true`。
-6. 输入失败时返回 `false`，并依次调用 `in.clear()` 与 `in.ignore(...)`。
-7. `ignore` 必须忽略至换行符 `\n`。
-8. 在 `test` 函数中使用 `assert` 验证成功输入、失败输入及失败后的继续读取。
+1. 使用 `in >> score` 读取整数。
+2. 输入成功时返回 `true`。
+3. 输入失败时返回 `false`，并依次调用 `in.clear()` 与 `in.ignore(...)`。
+4. `ignore` 必须忽略至换行符 `\n`。
+5. 在 `test` 函数中使用 `assert` 验证成功输入、失败输入及失败后的继续读取。
 
 ## 待完成代码
 
-```cpp
+``` cpp
 #include <cassert>
 #include <iostream>
 #include <limits>
@@ -89,10 +89,10 @@ int main() {
 
 ## 测试说明
 
-| 测试项 | 输入内容 | 预期结果 |
-|---|---|---|
-| 正常整数输入 | `85` | 返回 `true`，`score == 85` |
-| 非法输入 | `abc` | 返回 `false` |
+| 测试项         | 输入内容        | 预期结果                         |
+| -------------- | --------------- | -------------------------------- |
+| 正常整数输入   | `85`            | 返回 `true`，`score == 85`       |
+| 非法输入       | `abc`           | 返回 `false`                     |
 | 失败后继续读取 | `abc` 后接 `90` | 第二次返回 `true`，`score == 90` |
 
 若输入失败后只调用 `clear()` 而未调用 `ignore()`，下一次读取仍会遇到 `abc`，导致第二次测试失败。

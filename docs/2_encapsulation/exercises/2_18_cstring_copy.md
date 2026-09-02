@@ -1,4 +1,4 @@
-# 练习：复制 C 风格字符串
+# 练习18：复制 C 风格字符串
 
 ---
 
@@ -12,7 +12,7 @@
 
 C 风格字符串是以空字符 `\0` 结束的字符数组：
 
-```cpp
+``` cpp
 char name[] = "Alice";
 ```
 
@@ -22,7 +22,7 @@ char name[] = "Alice";
 
 `std::strlen` 返回字符串中可见字符的数量；`std::strcpy` 会连同结尾的 `\0` 一起复制字符串。
 
-```cpp
+``` cpp
 std::size_t length = std::strlen(source);
 std::strcpy(destination, source);
 ```
@@ -38,13 +38,13 @@ std::strcpy(destination, source);
    void copyName(char destination[], std::size_t capacity, const char source[]);
    ```
 
-3. 使用断言检查 `destination` 和 `source` 不为空，并检查 `capacity >= std::strlen(source) + 1`。
-4. 使用 `<cstring>` 中的函数复制字符串。
-5. 在 `test` 中验证复制结果、字符串长度和输出内容。
+1. 使用断言检查 `destination` 和 `source` 不为空，并检查 `capacity >= std::strlen(source) + 1`。
+2. 使用 `<cstring>` 中的函数复制字符串。
+3. 在 `test` 中验证复制结果、字符串长度和输出内容。
 
 ## 待完成代码
 
-```cpp
+``` cpp
 #include <cassert>
 #include <cstddef>
 #include <cstring>
@@ -82,7 +82,7 @@ int main() {
 
 复制后，目标数组应独立保存 `张如雪`，预期输出为：
 
-```text
+``` text
 姓名 张如雪
 ```
 
