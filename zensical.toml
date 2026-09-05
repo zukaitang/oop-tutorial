@@ -137,7 +137,18 @@ nav = [
         "2_encapsulation/exercises/2_20_vector_scores.md",
         # "2_encapsulation/exercises/answers.md",
     ]},
-    { "继承 Inheritance" = [
+    { "继承 Inheritance  - 练习" = [
+        "3_inheritance/exercises/3_1_public_inheritance.md",
+        "3_inheritance/exercises/3_2_protected_inheritance.md",
+        "3_inheritance/exercises/3_3_private_inheritance.md",
+        "3_inheritance/exercises/3_4_constructor_order.md",
+        "3_inheritance/exercises/3_5_base_initializer_list.md",
+        "3_inheritance/exercises/3_6_destructor_order.md",
+        "3_inheritance/exercises/3_7_multiple_inheritance_profile.md",
+        "3_inheritance/exercises/3_8_ambiguity_resolution.md",
+        "3_inheritance/exercises/3_9_virtual_base_class.md",
+        "3_inheritance/exercises/3_10_virtual_base_constructor.md",
+        # "3_inheritance/exercises/answers.md",
     ]},
     { "多态 Polymorphism" = [
     ]},
